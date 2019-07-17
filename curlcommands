@@ -1,0 +1,52 @@
+How to control Chromedriver using curl:
+
+Here is how to use Chromedriver without libraries like selenium-webdriver. This can be useful for debugging.
+The following example visits a web page and reads the a headline's text contents.
+
+
+1. download chromedriver.exe on windows/mac, go to the same directory and run this command:
+
+On Mac: ./chromedriver &
+On Windows: chromedriver.exe
+
+2. Create a session:
+Java Code:
+WebDriver driver = new ChromeDriver();
+
+Curl Command:
+curl -XPOST http://localhost:9515/session -d '{"desiredCapabilities":{"browserName":"chrome"}}'
+
+3. launch a URL:
+Java Code:
+driver.get("https://www.google.com");
+
+Curl Command:
+curl http://localhost:9515/session/78bf71d5557138ae54988224ab7d5103/url -d '{"url":"https://www.google.com"}'
+
+4. find an element:
+Java Code:
+WebElement element = driver.findElement(By.name("q"));
+
+Curl Command:
+curl http://localhost:9515/session/78bf71d5557138ae54988224ab7d5103/element -d '{"using":"name", "value":"q"}'
+
+
+5. enter text in element:
+Java Code:
+element.sendKeys("Naveen AutomationLabs");
+
+Curl Command:
+curl http://localhost:9515/session/78bf71d5557138ae54988224ab7d5103/element/0.5262517171777765-1 -d '{"value":["Jigar"]}'
+
+6. Quit Browser/close the session:
+Java Code:
+driver.quit();
+
+Curl Command:
+curl -X DELETE http://localhost:9515/session/78bf71d5557138ae54988224ab7d5103
+
+
+
+https://www.youtube.com/watch?v=Kpib95hUlPQ
+
+https://www.pawangaria.com/post/automation/browser-automation-from-command-line/
